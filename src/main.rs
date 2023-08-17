@@ -41,7 +41,7 @@ async fn run(args: &Cli) -> Result<(), String>  {
     let log = git_log();
  
     for x in log.unwrap().iter() {
-        let re = Regex::new(r"^(?P<issue_no>\w+-\d+) ").unwrap();
+        let re = Regex::new(r"^(\w+\/)?(?P<issue_no>\w+[-\s]\d+) ").unwrap();
         let message_id = match re.captures(x) {
             Some(m) => match m.name("issue_no") {
                 Some(mes) => mes.as_str(),

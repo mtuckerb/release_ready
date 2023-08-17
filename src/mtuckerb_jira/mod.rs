@@ -1,4 +1,4 @@
-use crate::set_redis;
+
 use crate::MtuckerbConfig as MtuckerbConfig;
 use serde::{Deserialize, Serialize};
 
@@ -45,6 +45,8 @@ pub async fn lookup_issue(
     auth_token: &str,
     config: &MtuckerbConfig,
 ) -> Result<Issue, String> {
+
+    let fixed_message_id = upcase_and_replace_space(&message_id);
     let issue = match reqwest::Client::new()
     .get(format!(
         "https://{}.atlassian.net/rest/agile/1.0/issue/{}",
@@ -69,3 +71,6 @@ pub async fn lookup_issue(
     };
 }
 
+fn upcase_and_replace_space(s: &str) -> String {
+    s.to_uppercase().replace(" ", "-")
+}
