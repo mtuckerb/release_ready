@@ -50,7 +50,7 @@ pub async fn lookup_issue(
     let issue = match reqwest::Client::new()
     .get(format!(
         "https://{}.atlassian.net/rest/agile/1.0/issue/{}",
-        config.subdomain, message_id
+        config.subdomain, fixed_message_id
     ))
     .header("Content-Type", "application/json")
     .header("Authorization", format!("Basic {}", &auth_token))
